@@ -1,10 +1,14 @@
 package com.zseni.weatherapp.di
 
 import android.app.Application
+import androidx.room.Room
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.zseni.weatherapp.data.api.RemoteDataSource
 import com.zseni.weatherapp.data.api.WeatherApiService
+import com.zseni.weatherapp.data.local.room.AppDatabase
+import com.zseni.weatherapp.data.local.room.LocalDataSource
+import com.zseni.weatherapp.data.local.room.WeatherDao
 import com.zseni.weatherapp.util.AppComponents.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -22,12 +26,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule{
+object AppModule {
 
     @Provides
     @Singleton
     fun provideWeatherApiService(
-       okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient
     ): WeatherApiService {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -35,6 +39,13 @@ object AppModule{
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create()
+    }
+
+    //TODO: Added database instance to DI
+    @Provides
+    @Singleton
+    fun providesDatabase(context: Application): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, "weather.db").build()
     }
 
     @Provides
@@ -51,7 +62,7 @@ object AppModule{
 
     @Provides
     @Singleton
-    fun provideFusedLocationProviderClient(app:Application):FusedLocationProviderClient{
+    fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(app)
     }
 
@@ -64,7 +75,21 @@ object AppModule{
 
     @Provides
     @Singleton
-    fun provideRemoteDataSource(weatherApiService: WeatherApiService):RemoteDataSource{
+    fun provideRemoteDataSource(weatherApiService: WeatherApiService): RemoteDataSource {
         return RemoteDataSource(weatherApiService)
+    }
+
+    //TODO: Added LocalDataSource to DI
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(weatherDao: WeatherDao): LocalDataSource {
+        return LocalDataSource(weatherDao)
+    }
+
+    //TODO: Added WeatherDao to DI
+    @Provides
+    @Singleton
+    fun providesWeatherDao(appDatabase: AppDatabase): WeatherDao {
+        return appDatabase.getDao()
     }
 }

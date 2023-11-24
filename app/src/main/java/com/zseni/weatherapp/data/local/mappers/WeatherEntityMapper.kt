@@ -8,6 +8,7 @@ import com.zseni.weatherapp.data.local.room.WeatherEntity
 import com.zseni.weatherapp.domain.model.DailyForecast
 import com.zseni.weatherapp.domain.model.Weather
 import com.zseni.weatherapp.domain.model.WeatherData
+import kotlinx.coroutines.flow.Flow
 
 
 object WeatherEntityMapper {

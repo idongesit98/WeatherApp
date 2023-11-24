@@ -1,5 +1,7 @@
 package com.zseni.weatherapp.presentation.component
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.zseni.weatherapp.R
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
+
 
 @Composable
 fun WeatherCard(

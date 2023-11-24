@@ -1,11 +1,39 @@
 package com.zseni.weatherapp.util
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 
+
+/**
+ * GENERIC TYPES
+ * This is a generic function and that means it can work with any type of data,
+ * @param ResultType is the data type loaded the local cache. Can be any thing, a list or any object.
+ * @param RequestType is the data type loaded from the network. Can be any thing, a list or any object.
+ * @see networkBoundResource
+ *
+ * ARGUMENT PARAMETERS
+ * This function takes in four argument parameters which are functions
+ *
+ * NOTE!!! -> all the paramEters are function implementations of the following pieces of logic
+ *
+ * @param query
+ * @return Flow<ResultType>
+ * pass in a function that loads data from your local cache and returns a flow of your specified data type <ResultType>
+ *
+ * @param fetch
+ * @return <RequestType>
+ * pass in a function, a suspend function, that loads data from your rest api and returns an object of <RequestType>
+ *
+ * @param saveFetchResult
+ * @return Unit
+ * pass in a function that just takes in <RequestType> (The data type got from the network) and saves it in the local cache.
+ *
+ * @param
+ * @return Boolean
+ * pass in a function that has the logic to whether the algorithm should make a networking call or not.
+ * In this case, this function takes in data loaded from @param query and determines whether to make a networking call or not.
+ * This can vary with your implementation however, say fetch depending on the last time you made a networking call....e.t.c.
+ *
+ */
 inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,
@@ -35,7 +63,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
         } catch (throwable: Throwable) {
 
-            //Dispatch any error emitted to the UI, plus data emitted from the Database
+            //Dispatch any error emitted to the UI, plus data emmited from the Database
             query().map { Resource.Error(throwable, it) }
 
         }
