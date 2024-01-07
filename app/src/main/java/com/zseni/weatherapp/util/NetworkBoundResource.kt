@@ -1,5 +1,6 @@
 package com.zseni.weatherapp.util
 
+import com.zseni.weatherapp.domain.model.WeatherData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first

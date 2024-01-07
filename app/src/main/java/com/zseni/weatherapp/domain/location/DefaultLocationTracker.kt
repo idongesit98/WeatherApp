@@ -37,9 +37,11 @@ class DefaultLocationTracker @Inject constructor(
                 locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 
         if (!hasAccessFineLocationPermission || !hasAccessCoarseLocationPermission || !isGpsEnabled) {
+            val errorThrowable = Exception("Please make sure you enable location permission")
             Resource.Error(
                 data = null,
-                message = "Please make sure you enable location permission"
+                throwable = errorThrowable
+
             )
 
         }

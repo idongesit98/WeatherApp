@@ -1,8 +1,11 @@
 package com.zseni.weatherapp.data.api
 
 
+
+
 import com.zseni.weatherapp.BuildConfig
-import com.zseni.weatherapp.util.Resource
+import com.zseni.weatherapp.data.testingData.weatherDto
+import com.zseni.weatherapp.util.AppComponents.OPENAPI_KEY
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,8 +16,8 @@ interface WeatherApiService {
    suspend fun getWeatherData(
        @Query("lat") latitude:Double,
        @Query("lon") longitude:Double,
-       @Query("appid") apiKey:String = BuildConfig.OPENAPI_KEY,
+       @Query("appid") apiKey:String =  BuildConfig.OPENAPI_KEY,
        @Query("units") units:String = "metric",
        @Query("exclude") exclude:String = "minutely"
-   ):Response<List<WeatherResponse>>
+   ): Response<List<weatherDto>>
 }

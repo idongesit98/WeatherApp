@@ -32,6 +32,6 @@ class RemoteDataSource @Inject constructor(
            }
        }catch (e:Exception){
            emit(Resource.Error(e))
-       }
+       }// ask chatgpt where to place the EmptyWeatherData.Instance
    }.flowOn(Dispatchers.IO)
 }

@@ -37,7 +37,6 @@ data class CurrentWeather(
     @SerializedName("wind_gust")
     val windGust: Double,
     val weather: List<Weather>,
-
 )
 
 

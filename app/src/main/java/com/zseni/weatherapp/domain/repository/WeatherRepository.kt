@@ -8,5 +8,5 @@ interface WeatherRepository {
     suspend fun getWeatherData(
         latitude:Double,
         longitude:Double
-    ):Flow<Resource<WeatherData>>
+    ): Flow<Resource<WeatherData>>
 }

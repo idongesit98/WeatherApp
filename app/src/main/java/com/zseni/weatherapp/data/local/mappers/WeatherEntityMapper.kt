@@ -1,5 +1,6 @@
 package com.zseni.weatherapp.data.local.mappers
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -10,8 +11,10 @@ import com.zseni.weatherapp.domain.model.Weather
 import com.zseni.weatherapp.domain.model.WeatherData
 
 
+
 object WeatherEntityMapper {
     fun mapWeatherEntityToWeatherData(weatherEntity: WeatherEntity): WeatherData {
+        Log.i("Weather", "WEATHER")
         val currentWeather = Weather(
             sunrise = weatherEntity.sunrise,
             sunset = weatherEntity.sunset,
@@ -23,9 +26,9 @@ object WeatherEntityMapper {
             uvi = weatherEntity.uvi,
             windSpeed = weatherEntity.windSpeed,
             windDegree = weatherEntity.windDegree,
-            weather = weatherEntity.weather
+            weather = weatherEntity.weather,
         )
-
+        Log.i("entity null", "where is the NPE")
         return WeatherData(
             background = getBackgroundFromId(weatherEntity.background),
             current = currentWeather,
@@ -35,7 +38,6 @@ object WeatherEntityMapper {
 
     fun mapWeatherDataToWeatherEntity(weatherData: WeatherData): WeatherEntity {
         val currentWeather = weatherData.current
-
         return WeatherEntity(
             background = getIdFromBackground(weatherData.background),
             sunrise = currentWeather.sunrise,
@@ -50,11 +52,13 @@ object WeatherEntityMapper {
             windDegree = currentWeather.windDegree,
             weather = currentWeather.weather,
             forecasts = convertListToJson(weatherData.forecasts)
+
         )
+
     }
 
     @DrawableRes
-    private fun getBackgroundFromId(id: Int): Int {
+    private fun getBackgroundFromId(id: Int?): Int {
         return when (id) {
             0 -> R.drawable.bg_morning
             1 -> R.drawable.bg_day
