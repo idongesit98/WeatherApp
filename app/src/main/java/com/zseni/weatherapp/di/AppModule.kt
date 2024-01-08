@@ -50,7 +50,7 @@ object AppModule{
             .build()
     }
 
-
+//TODO: your interceptor was logged before, you have all the data you need to find the cause of the crash
     @Provides
     @Singleton
     fun provideOkHttpClient(

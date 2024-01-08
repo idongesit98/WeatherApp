@@ -1,7 +1,7 @@
 package com.zseni.weatherapp.data.testingData
 
 import com.google.gson.annotations.SerializedName
-
+//TODO: stop using Any as your datatypes, it can be the cause of the crash, view the data and use the real datatypes
 data class weatherDto(
     val alerts: List<Any>,
     val current: Current,

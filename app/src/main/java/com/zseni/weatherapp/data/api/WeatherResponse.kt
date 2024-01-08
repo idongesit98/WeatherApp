@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 
 //This is equivalent to weatherDto
-
+//TODO: you should not have all the data models in one place, this is not right, seperate all of them into seperate files
 data class WeatherResponse(
     val lat: Double,
     val lon: Double,
