@@ -17,23 +17,23 @@ object WeatherEntityMapper {
     fun mapWeatherEntityToWeatherData(weatherEntity: WeatherEntity): WeatherData {
         Log.i("Weather", "WEATHER")
         val currentWeather = Weather(
-            sunrise = weatherEntity.sunrise,
-            sunset = weatherEntity.sunset,
-            temperature = weatherEntity.temperature,
-            feelsLike = weatherEntity.feelsLike,
-            pressure = weatherEntity.pressure,
-            humidity = weatherEntity.humidity,
-            visibility = weatherEntity.visibility,
-            uvi = weatherEntity.uvi,
-            windSpeed = weatherEntity.windSpeed,
-            windDegree = weatherEntity.windDegree,
-            weather = weatherEntity.weather,
+            sunrise = weatherEntity.sunrise ?: "",
+            sunset = weatherEntity.sunset ?: "",
+            temperature = weatherEntity.temperature ?: 0.0,
+            feelsLike = weatherEntity.feelsLike ?: 0.0,
+            pressure = weatherEntity.pressure ?: 0,
+            humidity = weatherEntity.humidity ?: 0,
+            visibility = weatherEntity.visibility ?: 0,
+            uvi = weatherEntity.uvi ?: 0.0,
+            windSpeed = weatherEntity.windSpeed ?: 0.0,
+            windDegree = weatherEntity.windDegree ?: 0,
+            weather = weatherEntity.weather ?: "",
         )
         Log.i("entity null", "where is the NPE")
         return WeatherData(
             background = getBackgroundFromId(weatherEntity.background),
             current = currentWeather,
-            forecasts = convertJsonToList(weatherEntity.forecasts)
+            forecasts = convertJsonToList(weatherEntity.forecasts ?: "")
         )
     }
 

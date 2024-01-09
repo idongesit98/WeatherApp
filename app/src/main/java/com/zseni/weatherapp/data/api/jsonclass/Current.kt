@@ -1,16 +1,16 @@
-package com.zseni.weatherapp.data.testingData
+package com.zseni.weatherapp.data.api.jsonclass
 
 import com.google.gson.annotations.SerializedName
 
 data class Current(
     val clouds: Int,
     val dew_point: Double,
-    val dt: Long,// changed go int
+    val dt: Long,
     @SerializedName("feels_like")
     val feelsLike: Double,
     val humidity: Int,
     val pressure: Int,
-    val sunrise: Long, //changed both to sunrise and sunset to Long from Int
+    val sunrise: Long,
     val sunset: Long,
     val temp: Double,
     val uvi: Double,

@@ -5,7 +5,6 @@ package com.zseni.weatherapp.data.api
 
 import com.zseni.weatherapp.BuildConfig
 import com.zseni.weatherapp.data.testingData.weatherDto
-import com.zseni.weatherapp.util.AppComponents.OPENAPI_KEY
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

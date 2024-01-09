@@ -1,13 +1,13 @@
 package com.zseni.weatherapp.data.local.mappers
 
 
+import com.zseni.weatherapp.data.api.jsonclass.DailyWeather
 import com.zseni.weatherapp.data.testingData.Current
-import com.zseni.weatherapp.data.testingData.DailyWeather
+
 import com.zseni.weatherapp.data.testingData.weatherDto
 import com.zseni.weatherapp.domain.model.DailyForecast
 import com.zseni.weatherapp.domain.model.Weather
 import com.zseni.weatherapp.domain.model.WeatherData
-import com.zseni.weatherapp.domain.weather.WeatherType
 import com.zseni.weatherapp.util.DrawableUtils
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -65,7 +65,7 @@ object WeatherResponseMapper {
         return daily.map {
             DailyForecast(
                 day = it.dt.toEEE(timeZone),
-                temp = it.temp.day,
+                temp = it.temp,
                 icon = DrawableUtils.getIconForWeather(it.weather.firstOrNull()?.main.orEmpty())
             )
         }

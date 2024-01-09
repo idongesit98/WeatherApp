@@ -9,18 +9,18 @@ import com.zseni.weatherapp.domain.weather.WeatherType
 @Entity(tableName = "weather_data")
 data class WeatherEntity(
     @PrimaryKey val id:Int = 1,
-    val background:Int ,
-    val sunrise:String,
-    val sunset:String,
-    val temperature:Double,
-    val feelsLike:Double,
-    val pressure:Int,
-    val humidity:Int,
-    val visibility:Int,
-    val uvi:Double,
-    val windSpeed:Double,
-    val windDegree:Int,
-    val weather:String,
-    val forecasts:String
+    val background:Int? = null ,
+    val sunrise:String? = null,
+    val sunset:String? = null,
+    val temperature:Double? = null,
+    val feelsLike:Double? = null,
+    val pressure:Int? = null,
+    val humidity:Int? = null,
+    val visibility:Int? = null,
+    val uvi:Double? = null,
+    val windSpeed:Double? = null,
+    val windDegree:Int? = null,
+    val weather:String? = null,
+    val forecasts:String? = null
 )
 
