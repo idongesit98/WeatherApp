@@ -1,4 +1,4 @@
-package com.zseni.weatherapp.data.testingData
+package com.zseni.weatherapp.data.api.remote.forecastweather
 
 data class Weather(
     val description: String,

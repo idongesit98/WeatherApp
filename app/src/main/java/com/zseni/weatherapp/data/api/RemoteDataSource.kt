@@ -1,37 +1,50 @@
 package com.zseni.weatherapp.data.api
 
-import com.zseni.weatherapp.data.local.mappers.WeatherResponseMapper
-import com.zseni.weatherapp.domain.model.WeatherData
-import com.zseni.weatherapp.util.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
-class RemoteDataSource @Inject constructor(
-    private val weatherApi: WeatherApiService
-) { suspend fun getWeatherData(
-       latitude:Double,
-       longitude:Double
-   ):Flow<Resource<WeatherData>> = flow {
-       try {
-           emit(Resource.Loading())
-           val response = weatherApi.getWeatherData(latitude, longitude)
-           if (response.isSuccessful) {
-               val weatherResponse = response.body()?.firstOrNull()
 
-               if (weatherResponse != null) {
-                   val weatherData =
-                       WeatherResponseMapper.mapWeatherResponseToWeatherData(weatherResponse)
-                   emit(Resource.Success(weatherData))
-               } else {
-                   emit(Resource.Error(Throwable("Empty response")))
-               }
-           } else {
-               emit(Resource.Error(Throwable("Network Error")))
-           }
-       }catch (e:Exception){
-           emit(Resource.Error(e))
-       }// ask chatgpt where to place the EmptyWeatherData.Instance
-   }.flowOn(Dispatchers.IO)
+import com.zseni.weatherapp.data.api.remote.currentweather.CurrentWeatherDto
+import com.zseni.weatherapp.data.api.remote.forecastweather.ForeCastDto
+import com.zseni.weatherapp.di.IoDispatcher
+import com.zseni.weatherapp.util.Resource
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+
+interface RemoteDataSource{
+    suspend fun getWeather(latitude: Double,longitude: Double):Resource<CurrentWeatherDto>
+
+    suspend fun getForeCast(latitude: Double,longitude: Double): Resource<ForeCastDto> // city:Int
+}
+class RemoteDataSourceImpl @Inject constructor(
+    private val weatherApi: WeatherApiService,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+):RemoteDataSource {
+    override suspend fun getWeather(
+        latitude: Double,
+        longitude: Double
+    ): Resource<CurrentWeatherDto> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Resource.Success(
+                    data = weatherApi.getWeatherData(latitude, longitude,"metric"
+                    ).body()
+                )
+            }catch (e:Exception){
+                Resource.Error(null, e.toString())
+            }
+        }
+
+    override suspend fun getForeCast(
+        latitude: Double,
+        longitude: Double,
+    ): Resource<ForeCastDto> =
+        withContext(ioDispatcher){
+            return@withContext try {
+                Resource.Success(
+                    data = weatherApi.getForecastData(latitude,
+                        longitude,"metric").body()
+                )
+            }catch (e:Exception){
+                Resource.Error(null,e.toString())
+            }
+        }
 }

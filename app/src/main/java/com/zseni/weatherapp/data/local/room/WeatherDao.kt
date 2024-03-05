@@ -4,17 +4,25 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 
 //TODO: Suspend functions were removed
 @Dao
 interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertWeatherData(weatherEntity: WeatherEntity)
+    suspend fun insertWeatherData(weatherEntity: WeatherEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertForeCastsData(forecastEntity: ForecastEntity)
 
     @Query("DELETE FROM weather_data")
-    fun deleteWeatherData()
+    suspend fun deleteWeatherData()
+
+    @Query("DELETE FROM weather_data")
+    suspend fun deleteForeCastData()
 
     @Query("select * from weather_data")
-     fun getWeatherData(): Flow<WeatherEntity?>
+     suspend fun getWeatherData(): WeatherEntity?
+
+    @Query("select * from weather_forecasts")
+    suspend fun getForeCastData(): ForecastEntity?
 }

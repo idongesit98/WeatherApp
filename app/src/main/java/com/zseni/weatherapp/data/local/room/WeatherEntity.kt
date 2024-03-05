@@ -1,26 +1,45 @@
 package com.zseni.weatherapp.data.local.room
 
-import android.util.Log
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.zseni.weatherapp.domain.weather.WeatherType
+import com.zseni.weatherapp.data.api.remote.currentweather.Clouds
+import com.zseni.weatherapp.data.api.remote.currentweather.Coord
+import com.zseni.weatherapp.data.api.remote.currentweather.Main
+import com.zseni.weatherapp.data.api.remote.currentweather.Rain
+import com.zseni.weatherapp.data.api.remote.currentweather.Sys
+import com.zseni.weatherapp.data.api.remote.currentweather.WeatherDescription
+import com.zseni.weatherapp.data.api.remote.currentweather.Wind
+import com.zseni.weatherapp.data.api.remote.forecastweather.City
+import com.zseni.weatherapp.data.api.remote.forecastweather.ForeCastDescription
 
 @Entity(tableName = "weather_data")
 data class WeatherEntity(
-    @PrimaryKey val id:Int = 1,
-    val background:Int? = null ,
-    val sunrise:String? = null,
-    val sunset:String? = null,
-    val temperature:Double? = null,
-    val feelsLike:Double? = null,
-    val pressure:Int? = null,
-    val humidity:Int? = null,
-    val visibility:Int? = null,
-    val uvi:Double? = null,
-    val windSpeed:Double? = null,
-    val windDegree:Int? = null,
-    val weather:String? = null,
-    val forecasts:String? = null
+    @PrimaryKey val id:Int = 0,
+    val base: String,
+    val clouds: Clouds,
+    val cod: Int,
+    val coord: Coord,
+    val dt: Int,
+    val main: Main,
+    val name: String,
+    val rain: Rain,
+    val sys: Sys,
+    val timezone: Int,
+    val visibility: Int,
+    val weather: List<WeatherDescription>,
+    val wind: Wind,
 )
+
+@Entity(tableName = "weather_forecasts")
+data class ForecastEntity(
+    @PrimaryKey
+    val id:Int,
+    val city: City,
+    val cnt: Int,
+    val cod: String,
+    val list: List<ForeCastDescription>,
+    val message: Int
+
+)
+
 

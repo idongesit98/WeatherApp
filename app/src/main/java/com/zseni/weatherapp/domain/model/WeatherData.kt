@@ -1,59 +1,26 @@
 package com.zseni.weatherapp.domain.model
 
-import androidx.annotation.DrawableRes
-import com.zseni.weatherapp.R
-
+import com.zseni.weatherapp.data.api.remote.currentweather.Clouds
+import com.zseni.weatherapp.data.api.remote.currentweather.Coord
+import com.zseni.weatherapp.data.api.remote.currentweather.Main
+import com.zseni.weatherapp.data.api.remote.currentweather.Rain
+import com.zseni.weatherapp.data.api.remote.currentweather.Sys
+import com.zseni.weatherapp.data.api.remote.currentweather.WeatherDescription
+import com.zseni.weatherapp.data.api.remote.currentweather.Wind
 data class WeatherData(
-    @DrawableRes val background: Int,
-    val current: Weather,
-    val forecasts: List<DailyForecast>
-)
-
-data class Weather(
-    val sunrise: String,
-    val sunset: String,
-    val temperature: Double,
-    val feelsLike: Double,
-    val pressure: Int,
-    val humidity: Int,
+    val base: String,
+    val clouds: Clouds,
+    val cod: Int,
+    val coord: Coord,
+    val dt: Int,
+    val id: Int,
+    val main: Main,
+    val name: String,
+    val rain: Rain,
+    val sys: Sys,
+    val timezone: Int,
     val visibility: Int,
-    val uvi: Double,
-    val windSpeed: Double,
-    val windDegree: Int,
-    val weather: String
+    val weather: List<WeatherDescription>,
+    val wind: Wind,
 )
 
-data class DailyForecast(
-    val day: String,
-    val temp: Double,
-    @DrawableRes val icon: Int,
-)
-
-object EmptyWeatherData {
-    val instance: WeatherData = WeatherData(
-        background = R.drawable.bg_day,
-        current = Weather(
-            sunrise = "00:00",
-            sunset = "00:00",
-            temperature = 0.0,
-            feelsLike = 0.0,
-            pressure = 0,
-            humidity = 0,
-            visibility = 0,
-            uvi = 0.0,
-            windSpeed = 0.0,
-            windDegree = 0,
-            weather = "No Data"
-        ),
-        forecasts = listOf(
-            DailyForecast("Nil", 0.0, R.drawable.ic_clear_day),
-            DailyForecast("Nil", 0.0, R.drawable.ic_clear_day),
-            DailyForecast("Nil", 0.0, R.drawable.ic_clear_day),
-            DailyForecast("Nil", 0.0, R.drawable.ic_clear_day),
-            DailyForecast("Nil", 0.0, R.drawable.ic_clear_day),
-            DailyForecast("Nil", 0.0, R.drawable.ic_clear_day),
-            DailyForecast("Nil", 0.0, R.drawable.ic_clear_day),
-            DailyForecast("Nil", 0.0, R.drawable.ic_clear_day)
-        )
-    )
-}

@@ -3,8 +3,8 @@ package com.zseni.weatherapp.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
-val md_theme_light_primary = Color(0x9568DFF7)
-val md_theme_light_primaryContainer = Color(0xFFA5EEFF)
+val md_theme_light_primary = Color(0x95A1A3A3)
+val md_theme_light_primaryContainer = Color(0xFFDCE6E7)
 val md_theme_light_onPrimaryContainer = Color(0xFF001F25)
 val md_theme_light_secondary = Color(0xFF4B6268)
 val md_theme_light_onSecondary = Color(0xFFFFFFFF)
@@ -65,5 +65,6 @@ val md_theme_dark_outlineVariant = Color(0xFF3F484B)
 val md_theme_dark_scrim = Color(0xFF000000)
 
 
-val seed = Color(0xFF889396)
-val textColour = Color(0xFF07FDE1)
+val cardTextColour = Color(0xFF727272)
+val containerColour = Color(0xFFC5DCDF)
+val blurColor = Color(0xFF92B4D8)

@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId = "com.zseni.weatherapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -32,7 +32,6 @@ android {
             "String",
             "API_KEY",
             "\"${properties.getProperty("API_KEY")}\""
-//            "\"${gradleLocalProperties(rootDir).getProperty("API_KEY")}\""
         )
     }
 
@@ -68,7 +67,6 @@ android {
 
 dependencies {
     val retrofitVersion = "2.9.0"
-    val moshiVersion = "1.13.0"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -115,7 +113,6 @@ dependencies {
     // hilt dependencies
     implementation("com.google.dagger:hilt-android:2.48")
     ksp("com.google.dagger:hilt-compiler:2.48")
-//    kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     //Location Services
     implementation ("com.google.android.gms:play-services-location:21.0.1")
@@ -125,5 +122,11 @@ dependencies {
 
     //Secrets Gradle
     implementation("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //External Library
+    implementation("eu.bambooapps:compose-material3-pullrefresh:1.0.0")
 
 }

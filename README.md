@@ -1,26 +1,19 @@
-# Note-App-Compose
-A Note app that demonstrate the use of some Android Development tools i have learnt
+# Weather-App-Compose
+This app utilises the openweatherApi to get current information about the weather in a particular place and also provides forecast about the
+weather through out the day as well as for the week. it also demonstrates the utilisation of key android development tools.
 
 ## Language
-
 **Language:** Kotlin 100%
 
 ## Tools Used
   *Dependency Injection* 
   * Coroutines*
-  * Clean Architecture*
   * Room*
   * Flow*
   * ViewModel*
 
-#### Skills Learnt
- 1. __Learnt How to use Dependency Injection,Flows for the first time__
- 2. __Jetpack Compose__
- 3. __The Importance of Testing__
+<img src ="/weatherImage/homescreen.jpg" alt ="homescreen"></p>
+<img src ="/weatherImage/forecastscreen.jpg" alt ="forecastscreen"></p>
 
-
-<p align="End"><img src ="/image/first_App.jpg" alt ="App Image"></p>
-<p align="Center"><img src ="/image/first_App with RB.jpg" alt ="App Image"></p>
-<p align="Center"><img src ="/image/edit.jpg" alt ="App Image"></p>
 
 

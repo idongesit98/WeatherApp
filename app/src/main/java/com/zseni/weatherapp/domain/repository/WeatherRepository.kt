@@ -1,6 +1,7 @@
 package com.zseni.weatherapp.domain.repository
 
 
+import com.zseni.weatherapp.domain.model.ForecastData
 import com.zseni.weatherapp.domain.model.WeatherData
 import com.zseni.weatherapp.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -9,4 +10,9 @@ interface WeatherRepository {
         latitude:Double,
         longitude:Double
     ): Flow<Resource<WeatherData>>
+
+    suspend fun getForeCastData(
+        latitude:Double,
+        longitude:Double
+    ):Flow<Resource<ForecastData>>
 }

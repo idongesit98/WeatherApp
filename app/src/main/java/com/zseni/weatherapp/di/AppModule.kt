@@ -5,25 +5,31 @@ import androidx.room.Room
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.zseni.weatherapp.data.api.RemoteDataSource
+import com.zseni.weatherapp.data.api.RemoteDataSourceImpl
 import com.zseni.weatherapp.data.api.WeatherApiService
 import com.zseni.weatherapp.data.local.room.AppDatabase
 import com.zseni.weatherapp.data.local.room.LocalDataSource
+import com.zseni.weatherapp.data.local.room.LocalDataSourceImpl
 import com.zseni.weatherapp.data.local.room.WeatherDao
-import com.zseni.weatherapp.data.repository.WeatherRepoImpl
 import com.zseni.weatherapp.util.AppComponents.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Provider
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class IoDispatcher
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -77,9 +83,19 @@ object AppModule{
         }
 
 
+   @Provides
+   @Singleton
+   fun provideIoDispatcher():CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
+    @IoDispatcher
+    fun provideIoDispatcherForLocal(@IoDispatcher ioDispatcher: CoroutineDispatcher): CoroutineDispatcher =
+        ioDispatcher
+
+
     @Provides
     fun provideRemoteDataSource(weatherApiService: WeatherApiService):RemoteDataSource{
-        return RemoteDataSource(weatherApiService)
+        return RemoteDataSourceImpl(weatherApiService,Dispatchers.IO)
     }
 
     @Provides
@@ -91,6 +107,6 @@ object AppModule{
     //TODO: Added LocalDatasource to DI
     @Provides
     fun provideLocalDataSource(weatherDao: WeatherDao):LocalDataSource{
-        return LocalDataSource(weatherDao)
+        return LocalDataSourceImpl(weatherDao,Dispatchers.IO)
     }
 }

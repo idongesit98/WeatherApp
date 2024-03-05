@@ -12,5 +12,13 @@
     <string name="unit">hpa</string>
     <string name="unit_hu">%</string>
     <string name="unit_wind">km/h</string>
+    <string name="clear_sky">Clear Sky</string>
+    <string name="wind">Wind</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
+    <string name="forward">Forward</string>
+    <string name="previous">Previous</string>
+    <string name="temperature">Temperature</string>
+    <string name="see_forecast">See Forecast</string>
 
 </resources>
